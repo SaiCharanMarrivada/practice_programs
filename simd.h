@@ -94,8 +94,8 @@ float32x8 rotate_right(float32x8 r) {
 
 template<int S>
 __mmask8 shift_blend_mask() {
-    if (S < 0) return (1 << S) - 1;
-    return ~((1 << (8 - S)) - 1);
+    if (S < 0) return (1 << (-S % 8)) - 1;
+    return ~((1 << ((8 - S % 8))) - 1);
 }
 
 template <int S>
