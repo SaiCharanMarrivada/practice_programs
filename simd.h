@@ -141,5 +141,38 @@ FORCE_INLINE float32x8 compare_with_exchange(float32x8 values,
     return blend(vmin, vmax, mask);
 }
 
+
+FORCE_INLINE float32x8 sorting_network(float32x8 input) {
+    // batcher's sorting network for n=8
+    auto permutation1 = make_permutation<1, 0, 3, 2, 5, 4, 7, 6>();
+    auto mask1 = make_bitmask<0, 1, 0, 1, 0, 1, 0, 1>();
+
+    auto permutation2 = make_permutation<3, 2, 1, 0, 7, 6, 5, 4>();
+    auto mask2 = make_bitmask<0, 0, 1, 1, 0, 0, 1, 1>();
+
+    auto permutation3 = make_permutation<1, 0, 3, 2, 5, 4, 7, 6>();
+    auto mask3 = make_bitmask<0, 1, 0, 1, 0, 1, 0, 1>();
+
+    auto permutation4 = make_permutation<7, 6, 5, 4, 3, 2, 1, 0>();
+    auto mask4 = make_bitmask<0, 0, 0, 0, 1, 1, 1, 1>();
+
+    auto permutation5 = make_permutation<2, 3, 0, 1, 6, 7, 4, 5>();
+    auto mask5 = make_bitmask<0, 0, 1, 1, 0, 0, 1, 1>();
+
+    auto permutation6 = make_permutation<1, 0, 3, 2, 5, 4, 7, 6>();
+    auto mask6 = make_bitmask<0, 1, 0, 1, 0, 1, 0, 1>();
+
+    input = compare_with_exchange(input, permutation1, mask1);
+    input = compare_with_exchange(input, permutation2, mask2);
+    input = compare_with_exchange(input, permutation3, mask3);
+    input = compare_with_exchange(input, permutation4, mask4);
+    input = compare_with_exchange(input, permutation5, mask5);
+    input = compare_with_exchange(input, permutation6, mask6);
+
+    return input;
+
+}
+
+
 } // namespace simd
 #endif // SIMD_H
