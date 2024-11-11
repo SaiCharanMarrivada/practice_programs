@@ -41,7 +41,7 @@ void interpret(Complex *registers, char const *code) {
                 break; 
         }
     }
-    exit(1);
+    // exit(1);
 }
 
 int main(int argc, char *argv[]) {
