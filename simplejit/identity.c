@@ -20,17 +20,16 @@ function compile_identity(void) {
         exit(1);
     }
 
-    int i = 0;
 
     // mov %rdi, %rax
-    memory[i++] = 0x48;
-    memory[i++] = 0x8b;
-    memory[i++] = 0xc7;
+    *memory++ = 0x48;
+    *memory++ = 0x8b;
+    *memory++ = 0xc7;
 
     // ret
-    memory[i++] = 0xc3;
+    *memory++ = 0xc3;
 
-    return (function)memory;
+    return (function)(memory - 4);
 }
 
 int main() {
