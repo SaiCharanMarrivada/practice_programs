@@ -8,7 +8,7 @@
 
 void step(float* r, const float* d, int n) {
     // assuming that size is divisible by `blocksize`
-    constexpr int blocksize = 8;
+    constexpr int blocksize = 4;
     const float infinity = std::numeric_limits<float>::infinity();
     std::vector<float> dtransposed(n * n);
     for (int i = 0; i < n; ++i) {
@@ -20,6 +20,7 @@ void step(float* r, const float* d, int n) {
 #pragma omp parallel for
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
+asm("innerloop:");
             float v[blocksize];
             for (int i = 0; i < blocksize; i++) v[i] = infinity;
             for (int k = 0; k < n; k += blocksize) {
@@ -35,6 +36,7 @@ void step(float* r, const float* d, int n) {
                 v1 = std::min(v[i], v1);
             }
             r[n*i + j] = v1;
+asm("innerloop_end:");
         }
     }
 
