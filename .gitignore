@@ -138,3 +138,8 @@
 ./benchmark/tools/strip_asm.py
 ./benchmark/.github/libcxx-setup.sh
 ./likely
+./programming_parallel_computers/v2
+./programming_parallel_computers/v0
+./programming_parallel_computers/v1
+./simplejit/hardcoded
+./simplejit/jit
