@@ -37,16 +37,16 @@ void movsd_reg_reg(Microasm *a, char source, char target) {
     bytes_written += 4;
 }
 void mulsd_reg_reg(Microasm *a, char source, char target) {
-    asm_write(a, 4, 0xf2, 0x0f, 0x59, 0xc0 | source << 3 | target);
+    asm_write(a, 4, 0xf2, 0x0f, 0x59, 0xc0 | target << 3 | source);
 }
 
 void addsd_reg_reg(Microasm *a, char source, char target) { 
-    asm_write(a, 4, 0xf2, 0x0f, 0x58, 0xc0 | source << 3 | target);
+    asm_write(a, 4, 0xf2, 0x0f, 0x58, 0xc0 | target << 3 | source);
     bytes_written += 4;
 }
 
 void subsd_reg_reg(Microasm *a, char source, char target) { 
-    asm_write(a, 4, 0xf2, 0x0f, 0x5c, 0xc0 | source << 3 | target);
+    asm_write(a, 4, 0xf2, 0x0f, 0x5c, 0xc0 | target << 3 | source);
     bytes_written += 4;
 }
 

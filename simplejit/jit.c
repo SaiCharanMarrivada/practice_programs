@@ -3,6 +3,9 @@
 #include <sys/mman.h>
 #include "microasm.h"
 
+#define WIDTH 1600
+#define HEIGHT 900
+
 typedef struct {
     double r, i;
 } Complex;
@@ -76,6 +79,7 @@ compiled compile(char *code) {
             default:
                 fprintf(stderr, "invalid instruction %s (ascii %x)\n", 
                     code, *code);
+                exit(1);
                 break; 
         }
     }
@@ -86,24 +90,20 @@ compiled compile(char *code) {
 
 
 int main(int argc, char *argv[]) {
-    // printf("%s\n", argv[1]);
-    // exit(1);
     compiled function = compile(argv[1]);
-
-    // asm("jmp *%0" : : "r"(function));
+    // add label for gdb
+    asm("f:");
 
     Complex registers[4];
     int i, x, y;
-    char line[1600];
+    char line[WIDTH];
 
-    // printf("%s", argv[1]);
-    // exit(1);
-    printf("P5\n%d %d\n%d\n", 1600, 900, 255);
+    printf("P5\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
 
-    for (y = 0; y < 900; y++) {
-        for (x = 0; x < 1600; x++) {
-            registers[0].r = 2 * 1.6 * (x / 1600.0 - 0.5);
-            registers[0].i = 2 * 0.9 * (y / 900.0 - 0.5);
+    for (y = 0; y < HEIGHT; y++) {
+        for (x = 0; x < WIDTH; x++) {
+            registers[0].r = 2 * 1.6 * (x / (double)WIDTH - 0.5);
+            registers[0].i = 2 * 0.9 * (y / (double)HEIGHT - 0.5);
 
             for (i = 1; i < 4; i++) {
                 registers[i].r = 0;

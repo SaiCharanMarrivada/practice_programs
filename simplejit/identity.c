@@ -35,6 +35,7 @@ function compile_identity(void) {
 int main() {
     function identity = compile_identity();
 
+    identity(10);
     int i = 0;
     for (int i = 0; i < 10; i++) {
         printf("f(i) = %ld\n", identity(i));
