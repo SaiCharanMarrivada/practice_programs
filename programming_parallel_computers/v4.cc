@@ -1,14 +1,18 @@
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
+#include <emmintrin.h>
 #include <immintrin.h>
 #include <iostream>
 #include <limits>
 #include <cstdlib>
 #include <omp.h>
+#include <sys/cdefs.h>
 #include <vector>
 #include <x86intrin.h>
 
 typedef float Vector8 __attribute__((vector_size(8 * sizeof(float))));
+typedef float Vector4 __attribute__((vector_size(4 * sizeof(float))));
 
 const float infinity = std::numeric_limits<float>::infinity();
 // zero-cost conversion from `__m256` to `Vector8`
@@ -37,11 +41,13 @@ asm("innerloop:");
                 v = (v < z) ? v : z;
             }
 
-            float v1 = infinity;
-            for (int i = 0; i < vectorsize; i++) {
-                v1 = std::min(v[i], v1);
-            }
-            r[n*i + j] = v1;
+            Vector4 vlow = _mm256_extractf128_ps(v, 0);
+            Vector4 vhigh = _mm256_extractf128_ps(v, 1);
+            Vector4 vmin = (vlow < vhigh) ? vlow : vhigh;
+            float v1 = std::min(vmin[0], vmin[1]);
+            float v2 = std::min(vmin[1], vmin[2]);
+            r[n*i + j] = std::min(v1, v2);
+
 asm("innerloop_end:");
         }
     }
@@ -50,6 +56,7 @@ asm("innerloop_end:");
 
 int main() {
     constexpr int n = 4000;
+    // align on 32 byte boundary
     float *d = (float *)aligned_alloc(32, n * n * sizeof(float));
     float *r = (float *)aligned_alloc(32, n * n * sizeof(float));
 

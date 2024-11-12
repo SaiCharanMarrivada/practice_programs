@@ -8,7 +8,7 @@
 
 void step(float* r, const float* d, int n) {
     // assuming that size is divisible by `blocksize`
-    constexpr int blocksize = 4;
+    constexpr int blocksize = 8;
     const float infinity = std::numeric_limits<float>::infinity();
     std::vector<float> dtransposed(n * n);
     for (int i = 0; i < n; ++i) {
