@@ -7,7 +7,7 @@
 void step(float* r, const float* d, int n) {
 
     float *dtransposed = (float *)malloc(n * n * sizeof(float));
-
+    // for cache locality
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             dtransposed[n*j + i] = d[n*i + j];
