@@ -61,4 +61,12 @@ int main() {
     step(r, d, n);
     std::cerr << "time elapsed: " << omp_get_wtime() -  t << "\n";
 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            std::cout << r[n*i + j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+
 }

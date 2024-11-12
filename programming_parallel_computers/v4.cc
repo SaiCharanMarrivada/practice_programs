@@ -45,7 +45,7 @@ asm("innerloop:");
             Vector4 vhigh = _mm256_extractf128_ps(v, 1);
             Vector4 vmin = (vlow < vhigh) ? vlow : vhigh;
             float v1 = std::min(vmin[0], vmin[1]);
-            float v2 = std::min(vmin[1], vmin[2]);
+            float v2 = std::min(vmin[2], vmin[3]);
             r[n*i + j] = std::min(v1, v2);
 
 asm("innerloop_end:");
@@ -74,4 +74,10 @@ int main() {
     step(r, d, n);
     std::cerr << "time elapsed: " << omp_get_wtime() -  t << "\n";
 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            std::cout << r[n*i + j] << " ";
+        }
+        std::cout << "\n";
+    }
 }
