@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #include <limits>
 #include <cstdlib>
@@ -19,32 +20,22 @@ void step(float* r, const float* d, int n) {
 }
 
 int main() {
-    constexpr int n = 4000;
+    constexpr int n = 2000;
     float *d = (float *)malloc(n * n * sizeof(float));
     float *r = (float *)malloc(n * n * sizeof(float));
-
-    double t = omp_get_wtime();
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (i == j) {
-                d[n*i + j] = 0;
+                d[n*i + j] = 0.0;
             } else {
-                d[n*i + j] = rand() % 30;
+                d[n*i + j] = (double)(rand() % 30 + 1);
             }
         }
     }
 
-    std::cout << omp_get_wtime() - t << "\n";
-
-    exit(1);
+    double t = omp_get_wtime();
     step(r, d, n);
+    std::cerr << "time elapsed: " << omp_get_wtime() -  t << "\n";
 
-
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            std::cout << r[i*n + j] << " ";
-        }
-        std::cout << "\n";
-    }
 }

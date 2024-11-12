@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
+#include "libdivide.h"
 
 unsigned int abs(int n) {
     return (n ^ (n >> 31)) - (n >> 31);

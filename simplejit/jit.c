@@ -67,7 +67,7 @@ compiled compile(char *code) {
                 movsd_reg_reg(&microasm, xmm(1), xmm(5));
                 mulsd_reg_reg(&microasm, xmm(3), xmm(5)); // source.i * target.i
 
-                subsd_reg_reg(&microasm, xmm(5), xmm(4));
+                subsd_reg_reg(&microasm, xmm(5), xmm(4)); // source.r * target.r - source.i * target.i
                 movsd_reg_memory(&microasm, xmm(4), target + r);
 
                 mulsd_reg_reg(&microasm, xmm(0), xmm(3));
