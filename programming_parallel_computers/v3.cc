@@ -27,7 +27,7 @@ asm("innerloop:");
                 for (int l = k; l < k + blocksize; l++) {
                     float x = d[n*i + l];
                     float y = dtransposed[n*j + l];
-                    v[l] = std::min(x + y, v[l]);
+                    v[l - k] = std::min(x + y, v[l - k]);
                 }
             }
 
