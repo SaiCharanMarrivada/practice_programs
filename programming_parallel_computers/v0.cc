@@ -38,4 +38,6 @@ int main() {
     step(r, d, n);
     std::cerr << "time elapsed: " << omp_get_wtime() -  t << "\n";
 
+    free(d);
+    free(r);
 }

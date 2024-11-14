@@ -16,7 +16,7 @@ typedef float Vector4 __attribute__((vector_size(4 * sizeof(float))));
 
 const float infinity = std::numeric_limits<float>::infinity();
 // zero-cost conversion from `__m256` to `Vector8`
-const Vector8 infinity8 = _mm256_set1_ps(infinity); 
+const Vector8 infinity8 = _mm256_set1_ps(infinity);
 
 void step(float* r, const float* d, int n) {
     // assuming that size is divisible by `blocksize`
@@ -52,6 +52,8 @@ asm("innerloop_end:");
         }
     }
 
+    free(dtransposed);
+
 }
 
 int main() {
@@ -80,4 +82,7 @@ int main() {
         }
         std::cout << "\n";
     }
+
+    free(d);
+    free(r);
 }

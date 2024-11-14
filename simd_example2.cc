@@ -8,7 +8,6 @@
 #define N 100
 
 unsigned int count(float *d, float value, int n) {
-    assert((unsigned int)n % 8 == 0);
     __m256i value8 = (__m256i)_mm256_set1_ps(value);
     int count = 0;
 

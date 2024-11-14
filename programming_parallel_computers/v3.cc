@@ -68,5 +68,6 @@ int main() {
         std::cout << "\n";
     }
 
-
+    free(d);
+    free(r);
 }
