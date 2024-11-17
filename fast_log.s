@@ -1,4 +1,3 @@
-
 .globl _start
 
 .section .text

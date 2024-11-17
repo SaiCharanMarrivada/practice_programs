@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <x86intrin.h>
@@ -25,8 +26,8 @@ float typepunning_bitcasting(int x) {
 
 
 int main() {
-    int x = 0x80000000; // -0.0
+    int x = 0x8f000000; // -0.0
     float y;
-    asm("vmovd %0, %%xmm0" : "=r"(y) : "r"(x)); // gnu inline asm
-    printf("%f\n", y);
+    asm("vmovd %1, %0" : "=x"(y) : "r"(x)); // gnu inline asm
+    assert(y == typepunning_union(x));
 }
