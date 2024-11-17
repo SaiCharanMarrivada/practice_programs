@@ -1,23 +1,11 @@
 #include <stdio.h>
-#define NOINLINE __attribute__((noinline))
-
-NOINLINE void swap(int *x, int *y) {
-    /*
-    int temp = *x;
-    *x = *y;
-    *y = temp;
-    */
-    __asm__(
-        "mov (%rdi), %eax \n\t"
-        "mov (%rsi), %edx \n\t"
-        "mov %edx, (%rsi) \n\t"
-        "mov %eax, (%rdi) "
-    );
-}
 
 int main() {
     int x = 1;
     int y = 2;
-    swap(&x, &y);
+    int temp;
+    asm("mov %1, %0" : "=r"(temp) : "r"(y));
+    asm("mov %1, %0" : "=r"(y) : "r"(x));
+    asm("mov %1, %0" : "=r"(x) : "r"(temp));
     printf("x = %d, y = %d\n", x, y);
 }
