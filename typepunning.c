@@ -28,6 +28,7 @@ float typepunning_bitcasting(int x) {
 int main() {
     int x = 0x8f000000; // -0.0
     float y;
-    asm("vmovd %1, %0" : "=x"(y) : "r"(x)); // gnu inline asm
+    // asm("vmovd %1, %0" : "=x"(y) : "r"(x)); // gnu inline asm
+    asm(".space 0" : "=rx"(y) : "0"(x)); // matching constraints
     assert(y == typepunning_union(x));
 }
