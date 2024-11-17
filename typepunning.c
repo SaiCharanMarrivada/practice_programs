@@ -11,19 +11,16 @@ float typepunning_memcpy(int x) {
 }
 
 float typepunning_union(int x) {
-    typedef struct {
-        union {
-            float float32;
-            int int32;
-        } as;
-    } Bits;
+    union {
+        float float32;
+        int int32;
+    } y = {.int32 = x};
 
-    Bits y = {.as.int32 = x};
-    return y.as.float32;
+    return y.float32;
 }
 
 float typepunning_bitcasting(int x) {
-    return *(float *)&x;
+    return *(float *)&x; // breaks strict aliasing rules
 }
 
 

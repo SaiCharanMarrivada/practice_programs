@@ -4,7 +4,7 @@
 #include <x86intrin.h>
 #include <assert.h>
 
-#define N 400
+#define N (int)4e6
 typedef int Vector8 __attribute__((vector_size(32)));
 
 #ifdef VERSION1
