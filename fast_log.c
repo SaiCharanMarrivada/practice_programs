@@ -2,11 +2,11 @@
 #define FORCE_INLINE __attribute__((always_inline)) inline
 
 
-FORCE_INLINE int ceil_log2(int x) {
+/*FORCE_INLINE*/ int ceil_log2(int x) {
     return 32 - __builtin_clz(x - 1);
 }
 
-FORCE_INLINE int floor_log2(int x) {
+/*FORCE_INLINE*/ int floor_log2(int x) {
     return 31 - __builtin_clz(x);
 }
 

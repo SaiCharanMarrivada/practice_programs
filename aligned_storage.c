@@ -6,7 +6,7 @@
 #endif
 
 typedef struct {
-    _Alignas(16) float x[4]; 
+    _Alignas(16) float x[4];
 } Vector4;
 
 Vector4 add(Vector4 v1, Vector4 v2) {

@@ -11,7 +11,7 @@ typedef struct {
 } Complex;
 
 static inline unsigned int length_squared(Complex c) {
-    return (c.r * c.r) + (c.i * c.i); 
+    return (c.r * c.r) + (c.i * c.i);
 }
 
 typedef void (*compiled)(Complex *);
@@ -20,7 +20,7 @@ void interpret(Complex *);
 
 compiled compile(char *code) {
     char *memory = mmap(
-        NULL, // address 
+        NULL, // address
         4096, // size
         PROT_READ | PROT_WRITE | PROT_EXEC,
         MAP_PRIVATE | MAP_ANONYMOUS,
@@ -61,7 +61,7 @@ compiled compile(char *code) {
                 movsd_memory_reg(&microasm, target + r, xmm(2));
                 movsd_memory_reg(&microasm, target + i, xmm(3));
 
-                movsd_reg_reg(&microasm, xmm(0), xmm(4)); 
+                movsd_reg_reg(&microasm, xmm(0), xmm(4));
                 mulsd_reg_reg(&microasm, xmm(2), xmm(4)); // source.r * target.r
 
                 movsd_reg_reg(&microasm, xmm(1), xmm(5));
@@ -77,10 +77,10 @@ compiled compile(char *code) {
                 break;
 
             default:
-                fprintf(stderr, "invalid instruction %s (ascii %x)\n", 
+                fprintf(stderr, "invalid instruction %s (ascii %x)\n",
                     code, *code);
                 exit(1);
-                break; 
+                break;
         }
     }
 
@@ -109,7 +109,7 @@ int main(int argc, char *argv[]) {
                 registers[i].r = 0;
                 registers[i].i = 0;
             }
-            
+
             for (i = 0; i < 256 && length_squared(registers[1]) < 4; i++) {
                 function(registers);
             }
