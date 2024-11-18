@@ -4,7 +4,7 @@ unsigned int abs(int a) {
 
 unsigned int cube_root(unsigned int n) {
     unsigned int bitwidth = 31 - __builtin_clz(n);
-    
+
     unsigned int b = (1 << (bitwidth / 3));
     unsigned int a;
     do {

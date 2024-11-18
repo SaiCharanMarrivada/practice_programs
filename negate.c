@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 typedef struct {
-    union as {
+    union {
         float float32;
         int int32;
     } as;
