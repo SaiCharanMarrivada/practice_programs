@@ -1,0 +1,18 @@
+0x7ffff7fc2000:	movsd  0x10(%rdi),%xmm0
+0x7ffff7fc2005:	movsd  0x18(%rdi),%xmm1
+0x7ffff7fc200a:	movsd  0x10(%rdi),%xmm2
+0x7ffff7fc200f:	movsd  0x18(%rdi),%xmm3
+0x7ffff7fc2014:	movsd  %xmm0,%xmm4
+0x7ffff7fc2018:	mulsd  %xmm2,%xmm4
+0x7ffff7fc201c:	movsd  %xmm1,%xmm5
+0x7ffff7fc2020:	mulsd  %xmm3,%xmm5
+0x7ffff7fc2024:	subsd  %xmm5,%xmm4
+0x7ffff7fc2028:	movsd  %xmm4,0x10(%rdi)
+0x7ffff7fc202d:	mulsd  %xmm0,%xmm3
+0x7ffff7fc2031:	mulsd  %xmm1,%xmm2
+0x7ffff7fc2035:	addsd  %xmm3,%xmm2
+0x7ffff7fc2039:	movsd  %xmm2,0x18(%rdi)
+0x7ffff7fc203e:	movupd 0x0(%rdi),%xmm0
+0x7ffff7fc2043:	addpd  0x10(%rdi),%xmm0
+0x7ffff7fc2048:	movupd %xmm0,0x10(%rdi)
+0x7ffff7fc204d:	ret
