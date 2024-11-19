@@ -39,14 +39,11 @@ int find2(int *a, int item) {
             int index = function(a, 102);                  \
             benchmark::DoNotOptimize(index);               \
         }                                                  \
-    }
+    }                                                      \
+    BENCHMARK(benchmark_##function)->Arg(4)
 
-CREATE_BENCHMARK(find, N)
-CREATE_BENCHMARK(find1, N)
-CREATE_BENCHMARK(find2, N)
-
-BENCHMARK(benchmark_find1)->Arg(4);
-BENCHMARK(benchmark_find)->Arg(4);
-BENCHMARK(benchmark_find2)->Arg(4);
+CREATE_BENCHMARK(find, N);
+CREATE_BENCHMARK(find1, N);
+CREATE_BENCHMARK(find2, N);
 
 BENCHMARK_MAIN();
