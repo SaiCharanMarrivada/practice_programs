@@ -119,5 +119,5 @@ void *realloc(void *block, size_t size) {
         memcpy(newblock, block, header->size);
         free(block);
     }
-    return block;
+    return newblock;
 }
