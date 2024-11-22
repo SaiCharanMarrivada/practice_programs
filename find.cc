@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <assert.h>
-#include "benchmark/benchmark.h"
+#include "bench.h"
 #include <algorithm>
 #include <x86intrin.h>
 #define N 4000
@@ -28,22 +28,13 @@ int find2(int *a, int item) {
     return std::lower_bound(a, a + N, item) - a;
 }
 
-#define CREATE_BENCHMARK(function, n)                      \
-    void benchmark_##function(benchmark::State &state) {   \
-        int a[n];                                          \
-        for (int i = 0; i < n; i++) {                      \
-            a[i] = rand() % 100;                           \
-        }                                                  \
-        std::sort(a, a + n);                               \
-        for (auto _ : state) {                             \
-            int index = function(a, 102);                  \
-            benchmark::DoNotOptimize(index);               \
-        }                                                  \
-    }                                                      \
-    BENCHMARK(benchmark_##function)->Arg(4)
+#define SETUP                          \
+        int a[N];                      \
+        for (int i = 0; i < N; i++)    \
+            a[i] = rand() % 100
 
-CREATE_BENCHMARK(find, N);
-CREATE_BENCHMARK(find1, N);
-CREATE_BENCHMARK(find2, N);
+CREATE_BENCHMARK(SETUP, find, a, 102);
+CREATE_BENCHMARK(SETUP, find1, a, 102);
+CREATE_BENCHMARK(SETUP, find2, a, 102);
 
 BENCHMARK_MAIN();

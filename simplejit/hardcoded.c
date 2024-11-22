@@ -6,7 +6,7 @@ typedef struct {
 } Complex;
 
 static inline unsigned int length_squared(Complex c) {
-    return (c.r * c.r) + (c.i * c.i); 
+    return (c.r * c.r) + (c.i * c.i);
 }
 
 void interpret(Complex *registers, const char *code) {
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
                 registers[i].i = 0;
             }
 
-            for (i = 0; i < 256 && length_squared(registers[1]) < 4; i++) 
+            for (i = 0; i < 256 && length_squared(registers[1]) < 4; i++)
                 interpret(registers, argv[1]);
             line[x] = i;
         }
