@@ -5,7 +5,7 @@
 #include <x86intrin.h>
 #include <string.h>
 
-#define N 30004
+#define N 300004
 
 unsigned int string_length(char *string) {
     unsigned int length = 0;
@@ -18,10 +18,19 @@ unsigned int string_length(char *string) {
     if (*string) {
         __m256i zero = _mm256_setzero_si256();
         for(;;) {
-            __m256i s = _mm256_loadu_si256((__m256i *)string);
+            // do two iterations instead of one
+            __m256i s = _mm256_load_si256((__m256i *)string);
             __m256i m =_mm256_cmpeq_epi8(s, zero);
             unsigned int mask = _mm256_movemask_epi8(m);
             if (mask) {
+                return length + __builtin_ctz(mask);
+            }
+            length += 32;
+            string += 32;
+            __m256i s1 = _mm256_load_si256((__m256i *)string);
+            __m256i m1 = _mm256_cmpeq_epi8(s, zero);
+            unsigned int mask1 = _mm256_movemask_epi8(m);
+            if (mask1) {
                 return length + __builtin_ctz(mask);
             }
             length += 32;
@@ -37,7 +46,16 @@ unsigned int string_length(char *string) {
         test[i] = 'a';              \
     test[N - 1] = '\0'
 
+
 CREATE_BENCHMARK(SETUP, string_length, test);
 CREATE_BENCHMARK(SETUP, strlen, test);
+/*
+____________________________________________________________________
+Benchmark                          Time             CPU   Iterations
+____________________________________________________________________
+benchmark_string_length/4       1634 ns         1634 ns       407498
+benchmark_strlen/4              2106 ns         2106 ns       329551
+*/
+
 
 BENCHMARK_MAIN();
