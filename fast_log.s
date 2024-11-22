@@ -1,13 +1,11 @@
-.globl _start
+.global fast_log
 
 .section .text
 
-_start:
-    mov $33, %edi
-    lzcnt %edi, %eax
-    mov $31, %edi
-    sub %eax, %edi
-
-    mov $60, %eax
-    syscall
+fast_log:
+    lzcnt %edi, %edi
+    mov $31, %eax
+    sub %edi, %eax
     ret
+
+.section .note.GNU-stack,"",%progbits
