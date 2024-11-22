@@ -21,7 +21,7 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 Header *get_free_block(size_t size) {
     Header *current = head;
     while (current) {
-        if (current->is_free && current->size) {
+        if (current->is_free && current->size >= size) {
             return current;
         }
         current = current->next;

@@ -5,36 +5,30 @@
 #include <x86intrin.h>
 #include <string.h>
 
-#define N 300004
+#define N 4096
 
 unsigned int string_length(char *string) {
     unsigned int length = 0;
-    // align the string on 32 byte
+    // align the string on 32 byte address
     while ((*string) && (((uintptr_t)(string) & (sizeof(__m256) - 1)) != 0)) {
-       string++;
-       length++;
+      string++;
+      length++;
     }
 
     if (*string) {
         __m256i zero = _mm256_setzero_si256();
         for(;;) {
-            // do two iterations instead of one
-            __m256i s = _mm256_load_si256((__m256i *)string);
-            __m256i m =_mm256_cmpeq_epi8(s, zero);
-            unsigned int mask = _mm256_movemask_epi8(m);
-            if (mask) {
-                return length + __builtin_ctz(mask);
+#pragma unroll
+            for (int i = 0; i < 4; i++) {
+                __m256i s = _mm256_load_si256((__m256i *)string);
+                __m256i m =_mm256_cmpeq_epi8(s, zero);
+                unsigned int mask = _mm256_movemask_epi8(m);
+                if (mask) {
+                    return length + __builtin_ctz(mask);
+                }
+                length += 32;
+                string += 32;
             }
-            length += 32;
-            string += 32;
-            __m256i s1 = _mm256_load_si256((__m256i *)string);
-            __m256i m1 = _mm256_cmpeq_epi8(s, zero);
-            unsigned int mask1 = _mm256_movemask_epi8(m);
-            if (mask1) {
-                return length + __builtin_ctz(mask);
-            }
-            length += 32;
-            string += 32;
         }
     }
     return length;

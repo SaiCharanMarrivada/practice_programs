@@ -31,7 +31,8 @@ int find2(int *a, int item) {
 #define SETUP                      \
     int a[N];                      \
     for (int i = 0; i < N; i++)    \
-        a[i] = rand() % 100
+        a[i] = rand() % 100;       \
+    std::sort(a, a + N)
 
 CREATE_BENCHMARK(SETUP, find, a, 102);
 CREATE_BENCHMARK(SETUP, find1, a, 102);
