@@ -28,10 +28,10 @@ int find2(int *a, int item) {
     return std::lower_bound(a, a + N, item) - a;
 }
 
-#define SETUP                          \
-        int a[N];                      \
-        for (int i = 0; i < N; i++)    \
-            a[i] = rand() % 100
+#define SETUP                      \
+    int a[N];                      \
+    for (int i = 0; i < N; i++)    \
+        a[i] = rand() % 100
 
 CREATE_BENCHMARK(SETUP, find, a, 102);
 CREATE_BENCHMARK(SETUP, find1, a, 102);
