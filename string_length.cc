@@ -49,13 +49,5 @@ unsigned int string_length(char *string) {
 
 CREATE_BENCHMARK(SETUP, string_length, test);
 CREATE_BENCHMARK(SETUP, strlen, test);
-/*
-____________________________________________________________________
-Benchmark                          Time             CPU   Iterations
-____________________________________________________________________
-benchmark_string_length/4       1634 ns         1634 ns       407498
-benchmark_strlen/4              2106 ns         2106 ns       329551
-*/
-
 
 BENCHMARK_MAIN();
