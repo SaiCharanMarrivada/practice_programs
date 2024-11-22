@@ -6,7 +6,6 @@
 #include <omp.h>
 
 #define  SIZE (int)(1e6)
-#define B 4
 
 float sum(float *a, unsigned int n) {
     __m256 partial0 = _mm256_setzero_ps();
