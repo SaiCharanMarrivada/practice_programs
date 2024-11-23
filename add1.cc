@@ -21,7 +21,7 @@ void benchmark_asm(benchmark::State &state) {
         __m256i v = _mm256_set1_epi32(1);
         benchmark::DoNotOptimize(v);
         __m256i y;
-        asm("vpcmpeqd %2, %1, %0" : "=x"(y) : "x"(v), "x"(v));
+        asm("vpcmpeqb %1, %1, %0" : "=x"(y) : "x"(v));
         asm("vpsubd %2, %1, %0" : "=x"(y) : "x"(v), "x"(y));
         benchmark::DoNotOptimize(y);
     }
