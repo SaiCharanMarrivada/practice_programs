@@ -3,7 +3,7 @@
 
 float inverse_sqrt(float x) {
     float y;
-    asm("vrsqrtss %2, %1, %0" : "=x"(y) : "x"(x), "x"(x));
+    asm("vrsqrtss %1, %1, %0" : "=x"(y) : "x"(x));
     return y;
 }
 
