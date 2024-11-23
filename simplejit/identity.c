@@ -7,7 +7,7 @@ typedef long (*function)(long);
 function compile_identity(void) {
     //`PROT_EXEC` is not set for memory allocated with `malloc`
     char *memory = mmap(
-        NULL, // address 
+        NULL, // address
         4096, // size
         PROT_READ | PROT_WRITE | PROT_EXEC,
         MAP_PRIVATE | MAP_ANONYMOUS,

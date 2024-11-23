@@ -1,6 +1,4 @@
-#include <immintrin.h>
 #include <stdint.h>
-#include <stdio.h>
 #include "bench.h"
 #include <x86intrin.h>
 #include <string.h>
@@ -10,7 +8,7 @@
 unsigned int string_length(char *string) {
     unsigned int length = 0;
     // align the string on 32 byte address
-    while ((*string) && (((uintptr_t)(string) & (sizeof(__m256) - 1)) != 0)) {
+    while ((*string) && (((uintptr_t)(string) & 31) != 0)) {
       string++;
       length++;
     }
