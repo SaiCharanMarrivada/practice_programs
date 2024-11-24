@@ -63,10 +63,7 @@ int vowels2(char *string) {
         }
 
     }
-
     return count;
-
-
 }
 
 #define SETUP                         \
