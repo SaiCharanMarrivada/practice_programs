@@ -29,10 +29,10 @@ class WeightedUnionFind(UnionFind):
         if root_p != root_q:
             if self.weight[root_p] < self.weight[root_q]:
                 self.parent[root_p] = root_q
-                self.weight[root_q] += 1
+                self.weight[root_q] += self.weight[root_p]
             else:
                 self.parent[root_q] = root_p
-                self.weight[root_p] += 1
+                self.weight[root_p] += self.weight[root_q]
 
 
 unionfind = WeightedUnionFind(10)
