@@ -8,6 +8,8 @@ class UnionFind:
 
     def root(self, node):
         while self.parent[node] != node:
+            # path-compression
+            self.parent[node] = self.parent[self.parent[node]]
             node = self.parent[node]
         return node
 
