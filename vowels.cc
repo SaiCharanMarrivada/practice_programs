@@ -2,7 +2,7 @@
 #include <x86intrin.h>
 #include <stdint.h>
 #include <stdio.h>
-#include "bench.h"
+// #include "bench.h"
 
 #define UNLIKELY(x) (__builtin_expect((x), 0))
 
@@ -32,7 +32,7 @@ int vowels2(char *string) {
     int count = 0;
     while (*string && ((uintptr_t)(string) & 31)) {
         if (memchr(vowels, *string, 5)) {
-            count++;
+           count++;
         }
         string++;
     }
@@ -47,7 +47,7 @@ int vowels2(char *string) {
         __m256i zero8 = _mm256_setzero_si256();
 
         for (;;) {
-            __m256i s8 = _mm256_load_si256((__m256i *)string);
+            __m256i s8 = _mm256_loadu_si256((__m256i *)string);
             count8 = _mm256_setzero_si256();
             count8 = _mm256_add_epi8(count8, _mm256_cmpeq_epi8(s8, a8));
             count8 = _mm256_add_epi8(count8, _mm256_cmpeq_epi8(s8, e8));
@@ -73,7 +73,12 @@ int vowels2(char *string) {
     }                                 \
     string[N - 1] = '\0'
 
-CREATE_BENCHMARK(SETUP, vowels, string);
-CREATE_BENCHMARK(SETUP, vowels2, string);
 
-BENCHMARK_MAIN();
+int main() {
+    SETUP;
+    printf("%d %d\n", vowels2(string) == N - 1, vowels2(string));
+}
+// CREATE_BENCHMARK(SETUP, vowels, string);
+// CREATE_BENCHMARK(SETUP, vowels2, string);
+
+// BENCHMARK_MAIN();
