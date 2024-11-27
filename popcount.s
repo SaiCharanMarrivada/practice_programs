@@ -4,7 +4,7 @@
 
 popcount:
     # not needed as `popcnt` instruction is provided by x86
-    xor %rdx, %rdx
+    xor %edx, %edx
     test %rdi, %rdi
     je _end
 count_ones:

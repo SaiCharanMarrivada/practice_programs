@@ -8,4 +8,4 @@ fast_log:
     sub %edi, %eax
     ret
 
-.section .note.GNU-stack,"",%progbits
+.section .note.GNU-stack, "" , %progbits
