@@ -14,7 +14,7 @@ sequence:
     shr %rdi
     cmovc %rcx, %rdi
     inc %rax
-    cmp $1, %rdi
+    # cmp $1, %rdi
     tzcnt %rdi, %rcx
     add %rcx, %rax
     shr %cl, %rdi
