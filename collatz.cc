@@ -11,11 +11,12 @@ uint64_t collatz2(uint64_t n) {
     while (n != 1) {
         if (n % 2 != 0) {
             n = 3 * n + 1;
-            auto shift = __builtin_ctz(n);
-            n >>= shift;
         } else {
             n /= 2;
         }
+        auto shift = __builtin_ctz(n);
+        n >>= shift;
+        count += shift;
         count++;
     }
     return count;
