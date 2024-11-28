@@ -4,20 +4,24 @@
 
 
 collatz:
-    xor %ecx, %ecx
+    xor %eax, %eax
     cmp $1, %rdi
     je _end
 
 sequence:
-    lea 1(%rdi, %rdi, 2), %rax
+    lea 1(%rdi, %rdi, 2), %rcx
+    # inc %rax
     shr %rdi
-    cmovc %rax, %rdi
-    inc %rcx
+    cmovc %rcx, %rdi
+    inc %rax
+    cmp $1, %rdi
+    tzcnt %rdi, %rcx
+    add %rcx, %rax
+    shr %cl, %rdi
     cmp $1, %rdi
     jne sequence
 
 _end:
-    mov %rcx, %rax
     ret
 
 .section .note.GNU-stack, "", %progbits
