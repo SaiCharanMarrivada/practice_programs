@@ -18,6 +18,7 @@
 ./.git/hooks/pre-receive.sample
 ./simplejit/hardcoded
 ./simplejit/jit
+./lists/target/
 ./cube_root.so
 ./benchmark/build/third_party/googletest/src/googletest/scripts/upload.py
 ./benchmark/build/third_party/googletest/src/googletest/scripts/gtest-config.in
