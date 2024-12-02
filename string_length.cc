@@ -19,8 +19,12 @@ unsigned int string_length(char *string) {
 #pragma unroll
             for (int i = 0; i < 4; i++) {
                 __m256i s = _mm256_load_si256((__m256i *)string);
-                __m256i m =_mm256_cmpeq_epi8(s, zero);
+#ifdef __AVX512VL__
+                unsigned int mask =_mm256_cmpeq_epi8_mask(s, zero);
+#else
+                auto m = _mm256_cmpeq_epi8(s, zero);
                 unsigned int mask = _mm256_movemask_epi8(m);
+#endif
                 if (mask) {
                     return length + __builtin_ctz(mask);
                 }
