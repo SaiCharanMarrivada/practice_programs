@@ -11,7 +11,7 @@ uint8_t max1(uint8_t *a, uint8_t *b) {
     for (int i = 0; i < N; i++) {
         // this fails on gcc
         if (b[i] > a[i]) a[i] = b[i];
-        a[i] = std::max(a[i], b[i]);
+        // a[i] = std::max(a[i], b[i]);
     }
     return a[rand() % N];
 }
