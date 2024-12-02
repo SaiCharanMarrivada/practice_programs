@@ -15,12 +15,14 @@ uint8_t max1(uint8_t *a, uint8_t *b) {
 }
 
 uint8_t max2(uint8_t *a, uint8_t *b) {
-    for (int i = 0; i < N; i += 128) {
-        for (int j = 0; j < 4; j++) {
-            auto a8 = _mm256_load_si256((__m256i *)&a[i]);
-            auto b8 = _mm256_load_si256((__m256i *)&b[i]);
+    auto a_vector = (__m256i *)a;
+    auto b_vector = (__m256i *)b;
+    for (int i = 0; i < N / 32; i += 2) {
+        for (int j = i; j < i + 2; j++) {
+            auto a8 = _mm256_load_si256(&a_vector[j]);
+            auto b8 = _mm256_load_si256(&b_vector[j]);
             auto max8 = _mm256_max_epu8(a8, b8);
-            _mm256_store_si256((__m256i *)&a[i], max8);
+            _mm256_store_si256(&a_vector[j], max8);
         }
     }
     return a[rand() % N];
