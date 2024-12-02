@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include "bench.h"
-#define N (1 << 19)
+#define N (1 << 24)
 
 using std::lower_bound;
 
@@ -10,6 +10,8 @@ int _lower_bound(int *a, int x, unsigned int n) {
     unsigned int length = n;
     while (length > 1) {
         unsigned int half_length = length / 2;
+        __builtin_prefetch(&a[half_length - 1]);
+        __builtin_prefetch(&a[length - 1]);
         current += (a[half_length - 1] < x) * half_length;
         length -= half_length;
     }

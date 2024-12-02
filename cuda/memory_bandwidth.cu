@@ -1,4 +1,3 @@
-
 #include <cstdio>
 
 #define THREADS_PER_BLOCK 512
