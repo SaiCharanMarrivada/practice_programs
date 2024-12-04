@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bench.h"
+#include "hsum.h"
 
 #define  N (int)(1e6)
+
 
 float sum(float *a, unsigned int n) {
     __m256 partial0 = _mm256_setzero_ps();
@@ -20,11 +22,7 @@ float sum(float *a, unsigned int n) {
 
     partial0 = _mm256_add_ps(partial0, partial1);
 
-    __m128 partial0_low = _mm256_extractf128_ps(partial0, 0);
-    __m128 partial1_high = _mm256_extractf128_ps(partial0, 1);
-    __m128 partial0_sum = _mm_add_ps(partial0_low, partial1_high);
-    partial0_sum = _mm_hadd_ps(partial0_sum, partial0_sum);
-    return partial0_sum[0] + partial0_sum[1];
+    return hsum(partial0);
 }
 
 float sum1(float *a, unsigned int n) {

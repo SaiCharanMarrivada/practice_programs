@@ -1,7 +1,7 @@
 #include "bench.h"
 #include <cstdint>
 #include <cstdlib>
-#include <algorithm>
+// #include <algorithm>
 #include <x86intrin.h>
 #include <xmmintrin.h>
 

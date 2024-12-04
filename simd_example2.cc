@@ -3,6 +3,7 @@
 #include "bench.h"
 #include <x86intrin.h>
 #include <assert.h>
+#include "hsum.h"
 
 #define N (int)4e5
 typedef int Vector8 __attribute__((vector_size(32)));
@@ -30,11 +31,7 @@ int count1(float *d, float value, int n) {
         s2 = _mm256_add_epi32(s2, mask2);
     }
     s1 = _mm256_add_epi32(s1, s2);
-    // Vector8 s1v = Vector8(s1);
-    int *v = (int *)&s1;
-    int sum = 0;
-    for (int i = 0; i < 8; i++) sum += v[i];
-    return -sum;
+    return -hsum(s1);
 }
 
 #define SETUP                   \
