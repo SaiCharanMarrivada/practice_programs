@@ -49,7 +49,7 @@ int main() {
     atomic_init(&semaphore.value, 1);
     pthread_t threads[2];
     pthread_create(&threads[0], NULL, f, "test1");
-    pthread_create(&threads[2], NULL, f, "test2");
+    pthread_create(&threads[1], NULL, f, "test2");
     for (;;);
     return 0;
 }
