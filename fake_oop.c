@@ -21,4 +21,6 @@ void print_point3(Point3 *point3) {
 int main() {
     Point3 p = {.point2.x = 1, .point2.y = 2, .z = 3};
     print_point3(&p);
+    printf("\n");
+    print_point2((Point2 *)&p);
 }
