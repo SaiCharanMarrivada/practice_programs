@@ -17,7 +17,7 @@ std::vector<std::string> powerset(std::string input) {
         int j = i;
         while (j > 0) {
             size_t lsb_bit = j & -j;
-            s.push_back(input[__builtin_ctzll(lsb_bit)]);
+            s.push_back(input[__builtin_ctzll(j)]);
             j -= lsb_bit;
         }
         sets.push_back(std::move(s));
