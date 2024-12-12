@@ -6,6 +6,7 @@
 #define REPEAT4(s) REPEAT2(REPEAT2(s))
 #define TEST_STRING REPEAT4(REPEAT4("s"))
 
+
 std::vector<std::string> powerset(std::string input) {
     std::vector<std::string> sets;
     sets.reserve(1ull << input.size());
@@ -16,10 +17,10 @@ std::vector<std::string> powerset(std::string input) {
         int j = i;
         while (j > 0) {
             size_t lsb_bit = j & -j;
-            s.push_back(input[__builtin_ffs(lsb_bit) - 1]);
+            s.push_back(input[__builtin_ctz(lsb_bit)]);
             j -= lsb_bit;
         }
-        sets.push_back(s);
+        sets.push_back(std::move(s));
     }
     return sets;
 }
