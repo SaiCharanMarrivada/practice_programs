@@ -1,4 +1,4 @@
-#include "bench.h"
+#include "bench.h" 
 #include <vector>
 #include <string>
 
@@ -6,26 +6,28 @@
 #define REPEAT4(s) REPEAT2(REPEAT2(s))
 #define TEST_STRING REPEAT4(REPEAT4("s"))
 
-
-std::vector<std::string> powerset(std::string input) {
-    std::vector<std::string> sets;
+std::vector<std::string_view> powerset(std::string input, char *current) {
+    std::vector<std::string_view> sets;
     sets.reserve(1ull << input.size());
 
     for (size_t i = 1; i < 1ull << input.size(); i++) {
-        std::string s;
-        s.reserve(__builtin_popcountll(i));
-        int j = i;
-        while (j > 0) {
+        char *s = current;
+        for (int j = i; j > 0; ) {
             size_t lsb_bit = j & -j;
-            s.push_back(input[__builtin_ctzll(j)]);
+            *s++ = input[__builtin_ctzll(j)];
             j -= lsb_bit;
         }
-        sets.push_back(std::move(s));
+        
+        sets.emplace_back(current, (size_t)(s - current));
+        current = s;
     }
     return sets;
 }
 
-#define SETUP
-CREATE_BENCHMARK(SETUP, powerset, TEST_STRING);
+#define SETUP  \
+    char pool[16 * (1 << 15)]; \
+    char *current = pool
+
+CREATE_BENCHMARK(SETUP, powerset, TEST_STRING, current);
 
 BENCHMARK_MAIN();
