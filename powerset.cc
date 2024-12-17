@@ -1,4 +1,4 @@
-#include "bench.h" 
+#include "bench.h"
 #include <vector>
 #include <string>
 
@@ -17,7 +17,7 @@ std::vector<std::string_view> powerset(std::string input, char *current) {
             *s++ = input[__builtin_ctzll(j)];
             j -= lsb_bit;
         }
-        
+
         sets.emplace_back(current, (size_t)(s - current));
         current = s;
     }

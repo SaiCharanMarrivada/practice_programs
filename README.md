@@ -9,4 +9,6 @@
 \
 [Simple jit complier for Mandelbrot set](https://github.com/spencertipping/jit-tutorial)
 \
-[Simple malloc implementation](https://github.com/arjun024/memalloc/)
+[Simple malloc implementation](https://github.com/arjun024/memalloc/)\
+[Crafting interpreters](https://craftinginterpreters.com/) \
+[learn-cuda by R. Shipley](https://github.com/rshipley160/learn-cuda)
