@@ -11,5 +11,8 @@ bool same_set(unsigned int address1, unsigned int address2) {
 int main() {
     unsigned int address1 = 0x12345678;
     unsigned int address2 = 0x87654321;
-    printf("same_set(0x%x, 0x%x) = %d\n", address1, address2, same_set(address1, address2));
+    printf(
+        "same_set(0x%x, 0x%x) = %d\n", address1, address2,
+        same_set(address1, address2)
+    );
 }
