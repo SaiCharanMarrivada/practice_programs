@@ -12,7 +12,7 @@ bool same_set(unsigned int address1, unsigned int address2) {
 }
 
 bool same_block(unsigned int address1, unsigned int address2) {
-    return (address1 ^ address2) & BitMask<12>::value;
+    return ((address1 ^ address2) >> 4) == 0;
 }
 
 int main() {
