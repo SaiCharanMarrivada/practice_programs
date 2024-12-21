@@ -1,4 +1,5 @@
 #include "bench.h"
+#include <cstddef>
 #include <vector>
 #include <string>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -22,12 +23,13 @@ std::vector<std::string_view> powerset(std::string input, char *current) {
 
     for (size_t i = 1; i < 1ull << input.size(); i++) {
         char *s = current;
-        int j = i;
-        switch (__builtin_popcountll(j)) {
+        size_t j = i;
+        size_t length = __builtin_popcountll(j);
+        switch (length) {
             BOOST_PP_REPEAT(64, CASE, int x);
         }
 
-        sets.emplace_back(current, (size_t)(s - current));
+        sets.emplace_back(current, length);
         current = s;
     }
     return sets;
