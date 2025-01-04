@@ -22,7 +22,7 @@ uint64_t collatz2(uint64_t n) {
     return count;
 }
 
-#define SETUP uint64_t n = 190000
+#define SETUP uint64_t n = 10000000
 
 CREATE_BENCHMARK(SETUP, collatz, n);
 CREATE_BENCHMARK(SETUP, collatz2, n);

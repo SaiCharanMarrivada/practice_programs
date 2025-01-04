@@ -11,10 +11,9 @@ sequence:
     lea 1(%rdi, %rdi, 2), %rcx
     shr %rdi
     cmovc %rcx, %rdi
-    inc %rax
     tzcnt %rdi, %rcx
-    add %rcx, %rax
-    shr %cl, %rdi
+    lea 1(%rax, %rcx), %rax 
+    shrx %rcx, %rdi, %rdi
     cmp $1, %rdi
     jne sequence
 

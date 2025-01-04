@@ -2,10 +2,12 @@
 #include "bench.h"
 #include <x86intrin.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 extern "C" {
 uint64_t popcount(uint64_t n); // defined in popcount.s
 }
+
 
 #define SETUP uint64_t n = -1
 
