@@ -1,5 +1,6 @@
 #include <initializer_list>
 #include <iostream>
+#include <type_traits>
 
 template <typename E>
 struct Expression {
@@ -80,10 +81,12 @@ Vector<float> expression2(Vector<float> v1, Vector<float> v2, Vector<float> v3) 
 int main() {
     Vector<float> v = {1, 2, 3};
     Vector<float> u = {2, 3, 4};
-    Vector<float> w = u + v;
+    Vector<float> w = u + v + v;
     w[0] = 2;
 
     for (int i = 0; i < 3; i++) {
         std::cout << w[i] << ", ";
     }
+
+    static_assert(std::is_same_v<std::remove_reference_t<decltype(w[0])>, float>);
 }
