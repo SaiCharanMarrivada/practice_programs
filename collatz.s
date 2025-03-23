@@ -1,23 +1,21 @@
-.global collatz
-
-.section .text
+global collatz
+section .text
 
 collatz:
-    xor %eax, %eax
-    cmp $1, %rdi
+    xor eax, eax
+    cmp rdi, 1
     je _end
 
 sequence:
-    lea 1(%rdi, %rdi, 2), %rcx
-    shr %rdi
-    cmovc %rcx, %rdi
-    tzcnt %rdi, %rcx
-    lea 1(%rax, %rcx), %rax 
-    shrx %rcx, %rdi, %rdi
-    cmp $1, %rdi
+    lea rcx, [3 * rdi + 1]
+    shr rdi, 1
+    cmovc rdi, rcx
+    tzcnt rcx, rdi
+    lea rax, [rax + rcx + 1]
+    shrx rdi, rdi, rcx
+    cmp rdi, 1
     jne sequence
 
 _end:
     ret
 
-.section .note.GNU-stack, "", %progbits
